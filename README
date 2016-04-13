@@ -1,0 +1,5 @@
+Compile :
+`lime test neko` or `lime test html5`
+
+Console output :
+`trace("THIS IS DEBUG");`
