@@ -17,6 +17,7 @@ class PlayState extends FlxState
 	public var player:FlxSprite;
 	public var floor:FlxObject;
 	public var exit:FlxSprite;
+	public var logo:FlxSprite;
 	
 	private static var youDied:Bool = false;
 	
@@ -29,6 +30,14 @@ class PlayState extends FlxState
 		// Load the level's tilemaps
 		coins = new FlxGroup();
 		level = new TiledLevel("assets/tiled/level.tmx", this);
+
+		// Load logo
+		logo = new FlxSprite();
+		logo.loadGraphic("assets/sprites/logo.png");
+
+		// Place logo
+		logo.x = 10;
+		logo.y = 300;
 		
 		// Add backgrounds
 		add(level.backgroundLayer);
@@ -60,6 +69,9 @@ class PlayState extends FlxState
 		status.alignment = RIGHT;
 		status.text = youDied ? "Aww, you died!" : "Collect coins.";
 		add(status);
+
+		// Add logo to scene
+		add(logo);
 	}
 	
 	override public function update(elapsed:Float):Void 
