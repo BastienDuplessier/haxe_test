@@ -80,10 +80,12 @@ class PlayState extends FlxState
 		if (FlxG.keys.anyPressed([LEFT, A]))
 		{
 			player.acceleration.x -= player.maxVelocity.x * 4;
+			logo.x -= 2;
 		}
 		if (FlxG.keys.anyPressed([RIGHT, D]))
 		{
 			player.acceleration.x += player.maxVelocity.x * 4;
+			logo.x += 2;
 		}
 		if (FlxG.keys.anyPressed([W, UP, SPACE]) && player.isTouching(FlxObject.FLOOR))
 		{
