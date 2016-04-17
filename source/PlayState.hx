@@ -9,119 +9,50 @@ import flixel.text.FlxText;
 
 class PlayState extends FlxState
 {
-	public var level:TiledLevel;
-	
-	public var score:FlxText;
-	public var status:FlxText;
-	public var coins:FlxGroup;
-	public var player:FlxSprite;
-	public var floor:FlxObject;
-	public var exit:FlxSprite;
-	public var logo:FlxSprite;
-	
-	private static var youDied:Bool = false;
-	
+	public var hero:Entity;
+
 	override public function create():Void 
 	{
 		FlxG.mouse.visible = false;
-		
 		bgColor = 0xffaaaaaa;
 		
-		// Load the level's tilemaps
-		coins = new FlxGroup();
-		level = new TiledLevel("assets/tiled/level.tmx", this);
-
-		// Load logo
-		logo = new FlxSprite();
-		logo.loadGraphic("assets/sprites/logo.png");
-
-		// Place logo
-		logo.x = 10;
-		logo.y = 300;
-		
-		// Add backgrounds
-		add(level.backgroundLayer);
-
-		// Draw coins first
-		add(coins);
-		
-		// Add static images
-		add(level.imagesLayer);
-		
-		// Load player objects
-		add(level.objectsLayer);
-		
-		// Add foreground tiles after adding level objects, so these tiles render on top of player
-		add(level.foregroundTiles);
-		
-		// Create UI
-		score = new FlxText(2, 2, 80);
-		score.scrollFactor.set(0, 0); 
-		score.borderColor = 0xff000000;
-		score.borderStyle = SHADOW;
-		score.text = "SCORE: " + (coins.countDead() * 100);
-		add(score);
-		
-		status = new FlxText(FlxG.width - 160 - 2, 2, 160);
-		status.scrollFactor.set(0, 0);
-		status.borderColor = 0xff000000;
-		score.borderStyle = SHADOW;
-		status.alignment = RIGHT;
-		status.text = youDied ? "Aww, you died!" : "Collect coins.";
-		add(status);
-
-		// Add logo to scene
-		add(logo);
+		// Load hero
+		hero = new Entity();
+		add(hero.sprite);
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
-		player.acceleration.x = 0;
-		if (FlxG.keys.anyPressed([LEFT, A]))
-		{
-			player.acceleration.x -= player.maxVelocity.x * 4;
-			logo.x -= 2;
-		}
-		if (FlxG.keys.anyPressed([RIGHT, D]))
-		{
-			player.acceleration.x += player.maxVelocity.x * 4;
-			logo.x += 2;
-		}
-		if (FlxG.keys.anyPressed([W, UP, SPACE]) && player.isTouching(FlxObject.FLOOR))
-		{
-			player.velocity.y = -player.maxVelocity.y / 2;
-		}
 		super.update(elapsed);
+		var speed = 0.04;
+		var rects = [[500, 0, 50, 800]];
 		
-		FlxG.overlap(coins, player, getCoin);
-		
-		// Collide with foreground tile layer
-		level.collideWithLevel(player);
-		
-		FlxG.overlap(exit, player, win);
-		
-		if (FlxG.overlap(player, floor))
-		{
-			youDied = true;
-			FlxG.resetState();
-		}
+		if(FlxG.keys.anyPressed([LEFT, A]))
+			hero.dx -= speed;
+			
+		if(FlxG.keys.anyPressed([RIGHT, D]))
+			hero.dx += speed;
+
+		if(FlxG.keys.anyPressed([W, UP, SPACE]) && hero.onGround())
+			hero.dy = -1;
+			
+		hero.update(rects);
+		// player.acceleration.x = 0;
+		// if (FlxG.keys.anyPressed([LEFT, A]))
+		// {
+		// 	player.acceleration.x -= player.maxVelocity.x * 4;
+		// 	logo.x -= 2;
+		// }
+		// if (FlxG.keys.anyPressed([RIGHT, D]))
+		// {
+		// 	player.acceleration.x += player.maxVelocity.x * 4;
+		// 	logo.x += 2;
+		// }
+		// if (FlxG.keys.anyPressed([W, UP, SPACE]) && player.isTouching(FlxObject.FLOOR))
+		// {
+		// 	player.velocity.y = -player.maxVelocity / 2;
+		// }
+		// super.update(elapsed);
 	}
-	
-	public function win(Exit:FlxObject, Player:FlxObject):Void
-	{
-		status.text = "Yay, you won!";
-		score.text = "SCORE: 5000";
-		player.kill();
-	}
-	
-	public function getCoin(Coin:FlxObject, Player:FlxObject):Void
-	{
-		Coin.kill();
-		score.text = "SCORE: " + (coins.countDead() * 100);
-		if (coins.countLiving() == 0)
-		{
-			status.text = "Find the exit";
-			exit.exists = true;
-		}
-	}
+
 }
