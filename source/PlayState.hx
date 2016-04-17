@@ -24,8 +24,8 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		var speed = 0.04;
-		var rects = [[500, 0, 50, 800]];
+		var speed = 5;
+		var rects = [[500.0, 0.0, 50.0, 800.0]];
 		
 		if(FlxG.keys.anyPressed([LEFT, A]))
 			hero.dx -= speed;
@@ -34,25 +34,8 @@ class PlayState extends FlxState
 			hero.dx += speed;
 
 		if(FlxG.keys.anyPressed([W, UP, SPACE]) && hero.onGround())
-			hero.dy = -1;
-			
+			hero.dy = -5;
 		hero.update(rects);
-		// player.acceleration.x = 0;
-		// if (FlxG.keys.anyPressed([LEFT, A]))
-		// {
-		// 	player.acceleration.x -= player.maxVelocity.x * 4;
-		// 	logo.x -= 2;
-		// }
-		// if (FlxG.keys.anyPressed([RIGHT, D]))
-		// {
-		// 	player.acceleration.x += player.maxVelocity.x * 4;
-		// 	logo.x += 2;
-		// }
-		// if (FlxG.keys.anyPressed([W, UP, SPACE]) && player.isTouching(FlxObject.FLOOR))
-		// {
-		// 	player.velocity.y = -player.maxVelocity / 2;
-		// }
-		// super.update(elapsed);
 	}
 
 }
