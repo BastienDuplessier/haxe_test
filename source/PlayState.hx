@@ -15,7 +15,12 @@ class PlayState extends FlxState
 	{
 		FlxG.mouse.visible = false;
 		bgColor = 0xffaaaaaa;
-		
+
+		var shape = new FlxSprite();
+		shape.makeGraphic(100, 20, 0x11aa1ff);
+		shape.x = 10;
+		shape.y = 400;
+		add(shape);
 		// Load hero
 		hero = new Entity();
 		add(hero.sprite);
@@ -24,8 +29,9 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		var speed = 0.9;
-		var rects = [[500.0, 0.0, 50.0, 800.0]];
+		var speed = 2;
+		var rects = [[10.0, 400.0, 100.0, 20.0]];
+
 		
 		if(FlxG.keys.anyPressed([LEFT, A]))
 			hero.dx -= speed;

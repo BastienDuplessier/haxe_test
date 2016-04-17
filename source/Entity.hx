@@ -59,7 +59,7 @@ class Entity {
 	public function adjust_position_x(cx, cy, xx, rects):Int {
 		var ix = xx;
 		while(hasCollision(ix, cy, rects) || cx == ix) {
-			if(cx > xx) {ix--;} else {ix++;}
+			if(cx < xx) {ix--;} else {ix++;}
 		}
 		return Std.int(ix); 
 	}
@@ -80,15 +80,15 @@ class Entity {
 		dx*=frictX;
 		xx = cx + Math.floor(dx);
 		// Left colliding ?
-		// if(hasCollision(xx, cy, rects)) {
-		// 	yy = 0;
-		// 	dy = 0;
-		// }
-		// // Bottom colliding ?
-		// if(hasCollision(cx, Math.floor(yy + height), rects)) {
-		// 	yy = 600 - height;
-		// 	dy = 0;
-		// }
+		if(hasCollision(Math.floor(xx), cy, rects)) {
+			xx = adjust_position_x(cx, cy, Math.floor(xx), rects);
+			dy *= -0.3;
+		}
+		// Right colliding ?
+		if(hasCollision(Math.floor(xx + height), cy, rects)) {
+			xx = adjust_position_x(cx, cy, Math.floor(xx + width), rects) - width;
+			dy *= -0.3;
+		}
 
 		// Y component
 		dy+=gravity;
