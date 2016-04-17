@@ -3,10 +3,8 @@ package;
 import flixel.FlxSprite;
 import flixel.FlxObject;
 
-class Player extends FlxSprite {
+class Robot extends FlxSprite {
 
-	private var name:String;
-	
 	public function new(sprSht:String):Void {
 		super();
 		initSpritesheet(sprSht);

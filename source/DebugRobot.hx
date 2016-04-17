@@ -3,7 +3,7 @@ package;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 
-class DebugPlayer extends Player {
+class DebugRobot extends Robot {
 
 	public function new():Void {
 		super("");

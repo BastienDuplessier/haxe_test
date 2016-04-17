@@ -7,7 +7,7 @@ import flixel.group.FlxGroup;
 
 class PlayState extends FlxState
 {
-	public var players:FlxGroup;
+	public var robots:FlxGroup;
 	public var map:FlxGroup;
 
 	override public function create():Void 
@@ -17,9 +17,9 @@ class PlayState extends FlxState
 		FlxG.debugger.visible = true;
 		bgColor = 0xffaaaaaa;
 
-		players = new FlxGroup();
-		players.add(new DebugPlayer());
-		for(player in players) { add(player); }
+		robots = new FlxGroup();
+		robots.add(new DebugRobot());
+		for(robot in robots) { add(robot); }
 		map = new FlxGroup();
 		// map.add(new FlxObject(0, 416, 300, 184));
 		// map.add(new FlxObject(352.25, 416, 208, 184));
@@ -35,13 +35,13 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		update_players(elapsed);
+		update_robots(elapsed);
 	}
 
-	public function update_players(elapsed:Float):Void {
-		for(player in players) {
-			player.update(elapsed);
-			FlxG.collide(map, player, FlxObject.separate);
+	public function update_robots(elapsed:Float):Void {
+		for(robot in robots) {
+			robot.update(elapsed);
+			FlxG.collide(map, robot, FlxObject.separate);
 		}
 	}
 
