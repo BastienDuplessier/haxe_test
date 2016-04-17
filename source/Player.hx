@@ -14,7 +14,5 @@ class Player extends FlxSprite {
 		acceleration.y = 400;
 		// drag.x = player.maxVelocity.x * 4;
 	}
-
-	}
 	
 }
