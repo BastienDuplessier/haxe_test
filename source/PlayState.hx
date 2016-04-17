@@ -9,6 +9,9 @@ class PlayState extends FlxState
 	override public function create():Void 
 	{
 		FlxG.mouse.visible = false;
+		// ONLY ON TEST
+		FlxG.debugger.visible = true;
+
 		bgColor = 0xffaaaaaa;
 	}
 	
