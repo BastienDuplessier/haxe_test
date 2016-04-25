@@ -13,18 +13,25 @@ class DebugRobot extends Robot {
 	}
 
 	public override function update(elapsed:Float) {
-		super.update(elapsed);
-		if (FlxG.keys.anyPressed([LEFT, A]))
-		{
+                // Horizontal movement
+		if (FlxG.keys.anyPressed([LEFT, A])) {
 			velocity.x -= maxVelocity.x / 10;
-		} else if (FlxG.keys.anyPressed([RIGHT, D]))
-		{
+		} else if (FlxG.keys.anyPressed([RIGHT, D])) {
 			velocity.x += maxVelocity.x / 10;
-		} else
-		{
+		} else {
 			var res = velocity.x / 2;
 			velocity.x = res > maxVelocity.x/200 ? res : 0;
-		} 
+		}
+                // Vertical movement
+                if (FlxG.keys.anyPressed([SPACE, UP])) {
+                        if(!falling) {
+                                if(!jumping) {
+                                        jump();
+                                }
+                                ascend();
+                        }
+                }
+		super.update(elapsed);
 	}
 	
 	
