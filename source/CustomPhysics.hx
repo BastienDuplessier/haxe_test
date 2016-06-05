@@ -16,10 +16,9 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 
 /**
- * This is the base class for most of the display objects (FlxSprite, FlxText, etc).
- * It includes some basic attributes about game objects, basic state information, sizes, scrolling, and basic physics and motion.
+ * This is a rip of FlxObject. The only change was to increase SEPARATE_BIAS value
  */
-class Test extends FlxBasic
+class CustomPhysics extends FlxBasic
 {
 	/**
 	 * Default value for FlxObject's pixelPerfectPosition var.

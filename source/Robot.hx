@@ -19,7 +19,7 @@ class Robot extends FlxSprite
 	private function initPhysics()
   {
 		maxVelocity.x = 100;
-		maxVelocity.y = 600;
+		maxVelocity.y = 400;
 		acceleration.y = 400;
 	}
 

@@ -34,7 +34,7 @@ class PlayState extends FlxState
   private function updateRobots(elapsed:Float):Void
   {
 	  robots.update(elapsed);
-    FlxG.overlap(map, robots, Test.separate);
+    FlxG.overlap(map, robots, CustomPhysics.separate);
   }
 
   private function createPlayers()
