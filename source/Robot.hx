@@ -7,8 +7,6 @@ import flixel.FlxG;
 class Robot extends FlxSprite
 {
   public var jumping:Bool = false;
-  public var falling:Bool = false;
-  public var lastVelocityY:Float = 0;
 	public function new(sprSht:String):Void
   {
 		super();
@@ -18,9 +16,9 @@ class Robot extends FlxSprite
 
 	private function initPhysics()
   {
-		maxVelocity.x = 100;
-		maxVelocity.y = 600;
-		acceleration.y = 800;
+		maxVelocity.x = 200;
+		maxVelocity.y = 800;
+		acceleration.y = 400;
 	}
 
 	private function initSpriteSheet(sprSht:String)
@@ -30,42 +28,33 @@ class Robot extends FlxSprite
 	public override function update(elapsed:Float)
   {
     updatePhysics();
-		super.update(elapsed);
+    super.update(elapsed);
 	}
 
   // Robot was on the ground
   public function jump()
   {
-    falling = false;
-    jumping = true;
-  }
-
-  // Robot is jumping
-	public function ascend()
-  {
- 	  if(!falling) {
-      velocity.y -= 150;
-      if(velocity.y <= -maxVelocity.y)
-      fall();
+    if(velocity.y == 0 && isTouching(FlxObject.FLOOR))
+    {
+      jumping = true;
     }
-	}
-
-  private function fall()
-  {
-    falling = true;
-    jumping = false;
   }
 
-  // Update physics on robot
+  public function falling():Bool
+  {
+    return velocity.y > 0;
+  }
+
   private function updatePhysics()
   {
-    if(velocity.y == 0) {
-      falling = false;
+ 	  if(jumping && !falling()) {
+      velocity.y -= maxVelocity.y / 5;
+      if(velocity.y <= -maxVelocity.y / 2)
+      {
+        jumping = false;
+      }
     }
-    if(jumping && (lastVelocityY < velocity.y)) {
-      falling = true;
-      jumping = false;
-    }
-    lastVelocityY = velocity.y;
+
   }
+
 }

@@ -23,11 +23,8 @@ class DebugRobot extends Robot {
     }
     // Vertical movement
     if (FlxG.keys.anyPressed([SPACE, UP])) {
-      if(!falling) {
-        if(!jumping)
-          jump();
-        ascend();
-      }
+      jump();
+
     }
     super.update(elapsed);
   }
