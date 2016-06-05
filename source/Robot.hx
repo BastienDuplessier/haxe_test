@@ -19,8 +19,8 @@ class Robot extends FlxSprite
 	private function initPhysics()
   {
 		maxVelocity.x = 100;
-		maxVelocity.y = 400;
-		acceleration.y = 400;
+		maxVelocity.y = 600;
+		acceleration.y = 800;
 	}
 
 	private function initSpriteSheet(sprSht:String)
@@ -44,7 +44,7 @@ class Robot extends FlxSprite
 	public function ascend()
   {
  	  if(!falling) {
-      velocity.y -= 50;
+      velocity.y -= 150;
       if(velocity.y <= -maxVelocity.y)
       fall();
     }
