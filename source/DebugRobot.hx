@@ -5,8 +5,7 @@ import flixel.FlxG;
 
 class DebugRobot extends Robot {
   public function new():Void {
-    super("");
-    makeGraphic(25,38, FlxColor.BLUE);
+    super("assets/sprites/orange.png");
     screenCenter();
     x = Std.random(FlxG.width);
   }
@@ -24,7 +23,6 @@ class DebugRobot extends Robot {
     // Vertical movement
     if (FlxG.keys.anyPressed([SPACE, UP])) {
       jump();
-
     }
     super.update(elapsed);
   }
