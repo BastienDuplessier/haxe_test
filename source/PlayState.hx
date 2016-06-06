@@ -28,7 +28,6 @@ class PlayState extends FlxState
   override public function update(elapsed:Float):Void 
   {
 	  super.update(elapsed);
-    // FlxG.overlap(map, robots, CustomPhysics.separate);
     FlxG.overlap(map, robots, FlxObject.separate);
   }
 
@@ -56,17 +55,4 @@ class PlayState extends FlxState
     }
     add(map);
   }
-
-  public static function fix_that_shit(mapElement, robot):Bool
-  {
-    // Fuck off
-    trace("There was a problem");
-    trace(mapElement);
-    if(robot.isTouching(FlxObject.FLOOR))
-    {
-      robot.y = mapElement.y - robot.height;
-    }
-    return true;
-  }
-
 }
