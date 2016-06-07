@@ -26,7 +26,9 @@ class Robot extends FlxSprite
       .add(RobotWalk, RobotIdle, RobotConditions.stopped)
 			.add(RobotJump, RobotIdle, RobotConditions.grounded)
 			.add(RobotIdle, RobotJump, RobotConditions.jumping)
-			.add(RobotWalk, RobotJump, RobotConditions.jumping);
+			.add(RobotWalk, RobotJump, RobotConditions.jumping)
+			.add(RobotIdle, RobotExplode, RobotConditions.die)
+			.add(RobotWalk, RobotExplode, RobotConditions.die);
 	}
 
 	private function initPhysics()
@@ -63,7 +65,6 @@ class Robot extends FlxSprite
     FlxG.watch.addQuick("Grounded", RobotConditions.grounded(this));
     FlxG.watch.addQuick("Jumping", RobotConditions.jumping(this));
     FlxG.watch.addQuick("Falling", RobotConditions.falling(this));
-    FlxG.watch.addQuick("Call", RobotConditions.call(this));
     super.update(elapsed);
 	}
 
@@ -100,6 +101,11 @@ class RobotConditions
   public static function call(Owner:FlxSprite):Bool
   {
     return FlxG.keys.justPressed.SHIFT;
+  }
+
+  public static function die(Owner:FlxSprite):Bool
+  {
+    return FlxG.keys.justPressed.CONTROL;
   }
 
 	public static function jumping(Owner:FlxSprite):Bool
@@ -187,5 +193,13 @@ class RobotFaint extends FlxFSMState<FlxSprite>
 	override public function enter(owner:FlxSprite, fsm:FlxFSM<FlxSprite>):Void 
 	{
 		owner.animation.play("fainting");
+	}
+}
+
+class RobotExplode extends FlxFSMState<FlxSprite>
+{
+	override public function enter(owner:FlxSprite, fsm:FlxFSM<FlxSprite>):Void 
+	{
+		owner.animation.play("exploding");
 	}
 }
